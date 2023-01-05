@@ -4,7 +4,7 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 	environment {
 		dockerHome = tool 'myDocker'
 		mavenHome = tool 'myMaven'
-		PATH ="$dockerHome/bin:$PATH:$mavenHome/bin:$PATH"
+		PATH ="$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
 	
 	stages{
