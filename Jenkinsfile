@@ -1,4 +1,4 @@
-pipeline {
+pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejecutar con cada commit en github el pipeline
 	agent any
 	stages{
 		stage('Build') {
@@ -26,7 +26,7 @@ pipeline {
 			echo 'Ejecucion normal...'
 		}
 		success{
-			cho 'Ejecucion Exitosa...'
+			echo 'Ejecucion Exitosa...'
 		}
 		failure{
 			echo 'Ejecucion Fallida...'
