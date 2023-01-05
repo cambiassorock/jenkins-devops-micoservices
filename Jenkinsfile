@@ -30,9 +30,11 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 		}
 		success{
 			echo 'Ejecucion Exitosa...'
+			mail bcc: '', body: 'Compilación por:  CHANGE_TITLE. Exitosa', cc: '', from: '', replyTo: '', subject: 'Compilacion', to: 'cambiaso_rock@hotmail.com'
 		}
 		failure{
 			echo 'Ejecucion Fallida...'
+			mail bcc: '', body: 'Compilación por:  CHANGE_TITLE. Errores', cc: '', from: '', replyTo: '', subject: 'Compilacion', to: 'cambiaso_rock@hotmail.com'
 		}
 		changed {
 			echo 'Ejecucion Cuando estado cambia...'
