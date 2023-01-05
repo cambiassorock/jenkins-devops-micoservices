@@ -8,7 +8,7 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 	}
 	
 	stages{
-		stage('Build') {
+		stage('Checkout') {
 			steps{
 				sh "mvn --version"
 				sh "docker version"
@@ -22,17 +22,19 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 				echo "BUILD_URL - $env.BUILD_URL"
 			}
 		}
+		stage('Compile') {
+			steps{
+				sh "mvn clean compile"
+			}
+		}
 		stage('Test') {
 			steps{
-				echo "Paso 1. Test"
-				echo "Paso 2. Test"
+				sh "mvn test"
 			}
 		}
 		stage('Integration Test') {
 			steps{
-				echo "Paso 1. Integration Test"
-				echo "Paso 2. Integration Test"
-				echo "Paso 3. Integration Test"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
 	} 
