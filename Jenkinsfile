@@ -20,5 +20,16 @@ pipeline {
 				echo "Paso 3. Integration Test"
 			}
 		}
+	} 
+	post {
+		always{
+			echo 'Ejecucion normal...'
+		}
+		success{
+			cho 'Ejecucion Exitosa...'
+		}
+		failure{
+			echo 'Ejecucion Fallida...'
+		}
 	}
 }
