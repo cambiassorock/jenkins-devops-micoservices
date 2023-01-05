@@ -31,5 +31,8 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 		failure{
 			echo 'Ejecucion Fallida...'
 		}
+		changed {
+			echo 'Ejecucion Cuando estado cambia...'
+		}
 	}
 }
