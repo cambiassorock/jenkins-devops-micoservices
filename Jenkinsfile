@@ -22,19 +22,51 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 				echo "BUILD_URL - $env.BUILD_URL"
 			}
 		}
+
 		stage('Compile') {
 			steps{
 				sh "mvn clean compile"
 			}
 		}
+
 		stage('Test') {
 			steps{
 				sh "mvn test"
 			}
 		}
+
 		stage('Integration Test') {
 			steps{
 				sh "mvn failsafe:integration-test failsafe:verify"
+			}
+		}
+
+		stage('Build Docker Image') //compile la imagen o generela
+		{
+			steps{
+				//forma primitiva de generar imagen del docker hub
+				//"docker build -t cambiassorock/currency-exchange-devops:$env.BUILD_TAG"
+				script{
+					dockerImage = docker.build("cambiassorock/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+			}
+		}
+
+		stage('Push Docker Image') //suba la image
+		{
+			steps{
+				script{
+					docker.withRegitry('','DockerHub'){
+						dockerImage.push();
+						dockerImage.push('latest');
+					}
+				}
+			}
+		}
+
+		stage('Package') { //construir el jar
+			steps{
+				sh "mvn package -DskipTests"
 			}
 		}
 	} 
