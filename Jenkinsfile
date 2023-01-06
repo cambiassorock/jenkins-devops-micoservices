@@ -41,6 +41,12 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 			}
 		}
 
+		stage('Package') { //construir el jar
+			steps{
+				sh "mvn package -DskipTests"
+			}
+		}
+		
 		stage('Build Docker Image') //compile la imagen o generela
 		{
 			steps{
@@ -61,12 +67,6 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 						dockerImage.push('latest');
 					}
 				}
-			}
-		}
-
-		stage('Package') { //construir el jar
-			steps{
-				sh "mvn package -DskipTests"
 			}
 		}
 	} 
