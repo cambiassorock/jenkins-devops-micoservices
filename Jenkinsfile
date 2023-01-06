@@ -46,7 +46,7 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 				sh "mvn package -DskipTests"
 			}
 		}
-		
+
 		stage('Build Docker Image') //compile la imagen o generela
 		{
 			steps{
@@ -62,7 +62,7 @@ pipeline { //con pipeline ya toma automatico cada minuto desde jenkins para ejec
 		{
 			steps{
 				script{
-					docker.withRegitry('','DockerHub'){
+					docker.withRegistry('','DockerHub'){
 						dockerImage.push();
 						dockerImage.push('latest');
 					}
